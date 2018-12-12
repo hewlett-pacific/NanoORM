@@ -2,22 +2,23 @@
 
 namespace NanoORM
 {
-    public interface IEntity<KeyType>
+    public interface IEntity
     {
-        KeyType key { get; set; }
-        void SetFields(ICollection<IBinding> bindings);
-        ICollection<IBinding> GetFields();
+        int Id { get; }
+        void SetFields(Dictionary<string, object> fields);
+        IEntity GetEntity(int id);
     }
 
-    public abstract class Entity<KeyType> : IEntity<KeyType>
+    public abstract class Entity<KeyType> : IEntity
     {
-        public KeyType key { get; set; }
-        public Entity(KeyType key)
-        {
-            this.key = key;
-        }
+        private IMapper<IEntity> mapper;
+        public int Id { get; }
 
-        public abstract void SetFields(ICollection<IBinding> bindings);
-        public abstract ICollection<IBinding> GetFields();
+        public abstract void SetFields(Dictionary<string, object> fields);
+        public abstract IEntity GetEntity(int id);
+        public void SetToDB()
+        {
+            this.mapper.Save(this);
+        }
     }
 }
