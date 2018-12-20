@@ -2,26 +2,20 @@
 
 namespace NanoORM
 {
-    public interface IMapper<Entity>
+    public interface IMapper
     {
-        string connectionString { get; set; }
-        void Save(Entity entity);
-        void Delete(Entity entity);
-        Dictionary<string, object> GetById(int id);
+        void Save(IEntity entity);
+        void Delete(IEntity entity);
+        Dictionary<string, object> GetByKey(object id);
     }
 
-    public abstract class DataMapper<Entity> : IMapper<Entity>
+    public abstract class DataMapper<Entity> : IMapper
     {
-        public string connectionString { get; set; }
+        protected System.Data.IDbConnection connection;
 
-        public DataMapper(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        public abstract Dictionary<string, object> GetById(int id);
-        public abstract Dictionary<string, object> Fetch(Dictionary<string, object> whereArgs);
-        public abstract void Save(Entity entity);
-        public abstract void Delete(Entity entity);
+        public abstract Dictionary<string, object> GetByKey(object id);
+        public abstract Dictionary<string, object> FetchBy(Dictionary<string, object> whereArgs);
+        public abstract void Save(IEntity entity);
+        public abstract void Delete(IEntity entity);
     }
 }

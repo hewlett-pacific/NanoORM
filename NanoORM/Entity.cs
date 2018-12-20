@@ -11,14 +11,14 @@ namespace NanoORM
 
     public abstract class Entity<KeyType> : IEntity
     {
-        private IMapper<IEntity> mapper;
+        protected IMapper mapper;
         public int Id { get; }
 
         public abstract void SetFields(Dictionary<string, object> fields);
         public abstract IEntity GetEntity(int id);
         public void SetToDB()
         {
-            this.mapper.Save(this);
+            mapper.Save(this);
         }
     }
 }
