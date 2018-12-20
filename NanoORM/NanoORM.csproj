@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="odac.client.x86" Version="1.112.3.20" />
-  </ItemGroup>
-
 </Project>
